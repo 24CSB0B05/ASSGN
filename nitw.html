@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIT Warangal Homepage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        H1{
+            text-align:center;
+        }
+        header {
+            background-color: powderblue;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #004d56;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            padding: 10px;
+        }
+
+        nav ul li a:hover {
+            background-color: #0277bd;
+            border-radius: 5px;
+        }
+
+        .announcements {
+            background-color: pink;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .image-slider {
+            margin: 20px 0;
+            text-align: center;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slider {
+            display: flex;
+            animation: slide 10s infinite;
+        }
+
+        .slider img {
+            width: 100%;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            33% {
+                transform: translateX(-100%);
+            }
+            66% {
+                transform: translateX(-200%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .news-events {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .news-card {
+            background-color: #e3f2fd;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .news-card h3 {
+            color: #0277bd;
+        }
+
+        .news-card p {
+            color: #555;
+        }
+
+        .campus-life {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .campus-life .images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .campus-life img {
+            width: 30%;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .campus-life img:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #004d56;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="https://yt3.googleusercontent.com/ytc/AIdro_mQ01rKwBcu71H0JWQ8HTQycX8b-rsbRFFvAstFETT4NGo=s900-c-k-c0x00ffffff-no-rj" alt="NITW Logo" height="80px">
+        </div>
+    </header>
+    <H1>NITW OFFICIAL WEBSITE</H1>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Admissions</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="announcements">
+        <marquee behavior="scroll" direction="left">
+            <p>Admissions for the 2025 batch are now open! Apply Now!</p>
+        </marquee>
+    </section>
+
+    <section class="image-slider">
+        <div class="slider">
+            <img src="https://nitw.ac.in/api/static/files/Ek_Ped_Maa_Ke_Naam-Banner_2024-8-14-12-58-36.jpg" alt="Campus Image 1">
+            <img src="https://www.nitw.ac.in/ECEDeptAssets/images/vision-img.jpg" alt="Campus Image 2">
+            <img src="https://nitw.ac.in/api/static/files/independence-Day-NITW-2024_2024-8-16-16-44-38.jpg" alt="Campus Image 3">
+        </div>
+    </section>
+
+    <section class="news-events">
+        <h2>News & Events</h2>
+        <div class="news-card">
+            <h3>Research Conference 2025</h3>
+            <p>The upcoming Research Conference at NIT Warangal will focus on new technologies and innovation...</p>
+        </div>
+        <div class="news-card">
+            <h3>Annual Sports Meet</h3>
+            <p>Join us for the Annual Sports Meet at NIT Warangal on 15th March. Get ready to participate!</p>
+        </div>
+    </section>
+
+    <section class="campus-life">
+        <h2>Campus Life</h2>
+        <div class="images">
+            <img src="https://intect-rewamp-bucket.s3.ap-south-1.amazonaws.com/images/college_photo/551473253203.jpg" alt="Campus Image 1">
+            <img src="https://image.free-apply.com/gallery/l/uni/gallery/lg/1035600221/0c67f7642f358dfca3204b2c9a00d0cef1bd02a5.jpg?s=640" alt="Campus Image 2">
+            <img src="https://image-static.collegedunia.com/public/reviewPhotos/876621/1000037100.jpg" alt="Campus Image 3">
+        </div>
+    </section>
+
+    
+</body>
+</html>
