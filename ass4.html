@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photography Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@300;400;600&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    h1 span {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: bold;
+    }
+
+    header {
+      background-color: #222;
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .logo {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+    }
+
+    header nav ul li {
+      margin-left: 1.5rem;
+    }
+
+    header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+    }
+
+    header nav ul li a:hover {
+      color: #f39c12;
+    }
+
+    header nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #f39c12;
+      left: 0;
+      bottom: -5px;
+      transition: width 0.3s;
+    }
+
+    header nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1601854266103-c1dd42130633?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dmludGFnZSUyMGNhbWVyYXxlbnwwfHwwfHx8MA%3D%3D') no-repeat center center/cover;
+      color: #fff;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column; 
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+    }
+
+    .hero h1 span {
+      font-size: 3rem;
+      color: #f39c12;
+    }
+
+    .hero button {
+      background-color: #f39c12;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+      margin-top: 20px;
+    }
+
+    .hero button:active {
+      transform: scale(0.95);
+    }
+
+    .hero button::after {
+      content: '';
+      position: absolute;
+      width: 300%;
+      height: 300%;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: ripple-animation 0.6s linear;
+      transform: scale(0);
+    }
+
+    @keyframes ripple-animation {
+      to {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Blog Section */
+    .blog-posts {
+      display: flex;
+      justify-content: space-around;
+      padding: 3rem 20px;
+    }
+
+    .blog-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      width: 30%;
+      text-align: center;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .blog-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .blog-card h2 {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .blog-card .full-description {
+      display: none;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .blog-card input[type="checkbox"] {
+      display: none;
+    }
+
+    .blog-card label {
+      text-decoration: none;
+      color: #f39c12;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .blog-card input[type="checkbox"]:checked ~ .full-description {
+      display: block;
+    }
+
+    .category-buttons {
+      display: flex;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+
+    .category-btn {
+      background-color: #222;
+      color: #fff;
+      border: none;
+      padding: 1rem 2rem;
+      margin: 0 1rem;
+      font-size: 1.2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .category-btn:hover {
+      background-color: #f39c12;
+      transform: scale(1.1);
+    }
+
+ 
+    #subscribe {
+      text-align: center;
+      padding: 2rem 20px;
+    }
+
+    #subscribe h2 {
+      margin-bottom: 1rem;
+    }
+
+    #subscribe form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #subscribe input {
+      padding: 10px;
+      margin: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    #subscribe .subscribe-btn {
+      background-color: #f39c12;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    #subscribe .subscribe-btn:hover {
+      box-shadow: 0 0 10px #f39c12;
+    }
+
+
+    footer {
+      background-color: #222;
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer .social-icons a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    footer .social-icons a:hover {
+      color: #f39c12;
+    }
+
+    .social-icons .rotate:hover {
+      transform: rotate(360deg);
+    }
+
+  
+    .social-icons .bounce:hover {
+      animation: bounce 0.8s ease infinite;
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <header>
+    <div class="logo">Photography Blog</div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <section id="home" class="hero">
+    <h1>
+      Capturing <span>Moments</span> Through Lenses
+    </h1>
+    <button class="cta-button">Explore Photography</button>
+  </section>
+
+ 
+  <section id="blog">
+    <div class="blog-posts">
+      <div class="blog-card">
+        <img src="https://archive.smashing.media/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c6cbebf1-b2a6-4f5f-8741-efebadfa30b2/dance.jpg" alt="Photography 1">
+        <h2>Mastering Light and Shadows</h2>
+        <p>Discover how lighting can transform your photos...</p>
+        <input type="checkbox" id="post1">
+        <label for="post1">Read More</label>
+        <div class="full-description">
+          <p>Lighting can make or break a photo. Learn how to master the art of using natural and artificial light to create the mood and effects you want in your shots. This post will guide you through some basic principles of light and how to apply them to different types of photography.</p>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="https://media.istockphoto.com/id/1381637603/photo/mountain-landscape.jpg?b=1&s=612x612&w=0&k=20&c=pP0uG1Q4O3e2RGMKDcyDd3JxSkFIOj7Tp0Y14p3aE5E=" alt="Photography 2">
+        <h2>Capturing Nature's Beauty</h2>
+        <p>Techniques for shooting stunning landscape photography...</p>
+        <input type="checkbox" id="post2">
+        <label for="post2">Read More</label>
+        <div class="full-description">
+          <p>Nature photography is all about capturing the beauty of the outdoors. From breathtaking mountain ranges to serene lakes, learn how to capture the vastness and details of nature through your lens. In this article, we cover composition, lighting, and timing to help you take stunning landscape shots.</p>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="https://www.theclickcommunity.com/blog/wp-content/uploads/2018/04/woman-with-red-hair-outside-by-Cassandra-Casley-840x560.jpg" alt="Photography 3">
+        <h2>Portrait Photography Tips</h2>
+        <p>Learn how to get the perfect portrait every time...</p>
+        <input type="checkbox" id="post3">
+        <label for="post3">Read More</label>
+        <div class="full-description">
+          <p>Portrait photography is all about capturing the essence of your subject. This article covers tips for lighting, angles, and creating a connection with your subject. Discover how to get the best shots, whether you’re using natural light or a studio setup.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="categories">
+    <div class="category-buttons">
+      <button class="category-btn">Portraits</button>
+      <button class="category-btn">Landscapes</button>
+      <button class="category-btn">Street Photography</button>
+    </div>
+  </section>
+
+ 
+  <section id="subscribe">
+    <h2>Subscribe for Photography Tips & Tricks</h2>
+    <form>
+      <input type="text" name="name" placeholder="Name">
+      <input type="email" name="email" placeholder="Email">
+      <button class="subscribe-btn">Subscribe</button>
+    </form>
+  </section>
+
+
+  <footer>
+    <div class="social-icons">
+      <a href="#" class="social-icon rotate" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="social-icon rotate" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="social-icon bounce" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-icon bounce" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </footer>
+
+</body>
+</html>
