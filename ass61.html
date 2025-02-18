@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>JavaScript Example</title>
+</head>
+<body>
+
+    <h2>JavaScript Variables, Functions & Events</h2>
+
+    <button onclick="showMessage()">Click Me</button>
+
+    <br><br>
+
+    <form id="myForm" onsubmit="handleSubmit(event)">
+        <label for="nameInput">Enter Name:</label>
+        <input type="text" id="nameInput" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        var globalVar = "I am a global variable";
+        let blockScopedVar = "I exist only in blocks";
+        const PI = 3.14;
+
+        function testScope() {
+            var functionScopedVar = "I exist only inside this function";
+            console.log(globalVar);
+            console.log(functionScopedVar);
+        }
+
+        function greet(name) {
+            return "Hello, " + name;
+        }
+
+        const add = function(a, b) {
+            return a + b;
+        };
+
+        const multiply = (a, b) => a * b;
+
+        function showMessage() {
+            alert("Button Clicked!");
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            let name = document.getElementById("nameInput").value;
+            alert("Submitted Name: " + name);
+        }
+
+        console.log(greet("Alice"));
+        console.log(add(5, 3));
+        console.log(multiply(4, 2));
+    </script>
+
+</body>
+</html>
