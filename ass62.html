@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f59f9f;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div {
+            text-align: center;
+            width: 60%;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: powderblue;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-style: italic;
+            text-decoration: underline;
+            font-size: 1.8em;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid white;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            height: 150px;
+            width: 150px;
+            border-radius: 50%;
+        }
+
+        .form-group {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <marquee direction="right">Please fill all the details in the registration form</marquee>
+    <h1>REGISTRATION FORM</h1>
+    <i class="fas fa-file"></i>
+    <br>
+    <div class="image-container">
+        <img src="https://m.media-amazon.com/images/I/41IK02LISNL._AC_UF1000,1000_QL80_.jpg" alt="woman"/>
+    </div>
+
+    <form id="registrationForm" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="firstname">First name:</label>
+            <input type="text" name="firstname" id="firstname" placeholder="Enter your first name">
+        </div>
+
+        <div class="form-group">
+            <label for="lastname">Last name:</label>
+            <input type="text" name="lastname" id="lastname" placeholder="Enter your last name">
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="text" name="email" id="email" placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label for="mobilenum">Mobile no.:</label>
+            <input type="number" name="mobilenum" id="mobilenum" placeholder="Enter your mobile number">
+        </div>
+
+        <div class="form-group">
+            <label for="local">Local Address:</label>
+            <textarea id="local" name="local" placeholder="Enter your local address"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="perm">Permanent Address:</label>
+            <textarea id="perm" name="perm" placeholder="Enter your permanent address"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="num">PIN CODE:</label>
+            <input type="number" name="num" id="num" placeholder="Enter your area pincode">
+        </div>
+
+        <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" name="state" id="state" placeholder="Enter your state">
+        </div>
+
+        <div class="form-group">
+            <label for="nation">Nationality:</label>
+            <input type="text" name="nation" id="nation" placeholder="Enter your nationality">
+        </div>
+
+        <div class="form-group">
+            <label for="identity">Proof of Identity:</label>
+            <input type="text" name="identity" id="identity" placeholder="Enter proof of identity">
+        </div>
+
+        <div class="form-group">
+            <label for="ident">Submit your Proof of Identity:</label>
+            <input type="file" name="ident" id="ident">
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" name="dob" id="dob">
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="interest">Fields of Interest:</label>
+            <select name="interest" id="interest">
+                <option value="ML" selected>Machine learning</option>
+                <option value="WEBDEV">Web development</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Languages Known:</label><br>
+            <input type="checkbox" name="language" value="tel" id="tel">
+            <label for="tel">Telugu</label><br>
+
+            <input type="checkbox" name="language" value="eng" id="eng">
+            <label for="eng">English</label><br>
+
+            <input type="checkbox" name="language" value="hin" id="hin">
+            <label for="hin">Hindi</label><br>
+        </div>
+
+        <div class="form-group">
+            <label>Languages Learnt:</label><br>
+            <input type="checkbox" name="lang" value="cpp" id="cpp">
+            <label for="cpp">CPP</label><br>
+
+            <input type="checkbox" name="lang" value="java" id="java">
+            <label for="java">Java</label><br>
+
+            <input type="checkbox" name="lang" value="c" id="c">
+            <label for="c">C</label><br>
+        </div>
+
+        <div class="form-group">
+            <label>Select your age:</label><br>
+            <input type="radio" name="age" value="0-18" id="agecheck">
+            <label for="agecheck">0 to 18 yrs</label><br>
+
+            <input type="radio" name="age" value="18+" id="agecheck2">
+            <label for="agecheck2">18 and above</label><br>
+        </div>
+
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        var firstname = document.getElementById("firstname").value;
+        var lastname = document.getElementById("lastname").value;
+        var email = document.getElementById("email").value;
+        var mobilenum = document.getElementById("mobilenum").value;
+        var local = document.getElementById("local").value;
+        var perm = document.getElementById("perm").value;
+        var num = document.getElementById("num").value;
+        var state = document.getElementById("state").value;
+        var nation = document.getElementById("nation").value;
+        var identity = document.getElementById("identity").value;
+        var dob = document.getElementById("dob").value;
+        var gender = document.getElementById("gender").value;
+        var age = document.querySelector('input[name="age"]:checked');
+        
+        if (!firstname || !lastname || !email || !mobilenum || !local || !perm || !num || !state || !nation || !identity || !dob || !gender || !age) {
+            alert("Please fill all the fields!");
+            return false;
+        }
+
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailPattern.test(email)) {
+            alert("Please enter a valid email address.");
+            return false;
+        }
+
+        if (mobilenum.length !== 10) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return false;
+        }
+
+        if (num.length !== 6) {
+            alert("Please enter a valid 6-digit PIN code.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+</body>
+</html>
