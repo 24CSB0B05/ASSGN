@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: lightblue;
+            color:brown;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        #product-list {
+            width: 70%;
+        }
+
+        .product {
+            background-color: pink;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            max-width: 200px;
+            margin-bottom: 15px;
+        }
+
+        .product h3 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .product p {
+            font-size: 1rem;
+            color: red;
+        }
+
+        .add-to-cart {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: black;
+        }
+
+        #cart {
+            width: 25%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #cart h2 {
+            text-align: center;
+            color: #34495e;
+        }
+
+        #cart ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #cart ul li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #cart-total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        #cart-time {
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Toy story house &hearts;</h1>
+    </header>
+
+    <main>
+        <section id="product-list">
+            <h2>Our Products</h2>
+            <h3>Grab your favourite toy</h3>
+            <div class="product" id="product-1">
+                <img src="https://upload.wikimedia.org/wikipedia/en/0/01/Sheriff_Woody.png" alt="Product 1">
+                <h3>Woody</h3>
+                <h4>A loyal, dependable leader who is always looking out for his friends. </h4>
+                <p>$20.00</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" id="product-2">
+                <img src="https://upload.wikimedia.org/wikipedia/en/8/87/Jessie_%28Toy_Story%29.png" alt="Product 2">
+                <h3>Jessie</h3>
+                <h4>Jessie is friendly, sarcastic, and excitable</h4>
+                <p>$30.00</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" id="product-3">
+                <img src="https://upload.wikimedia.org/wikipedia/en/6/63/Buzz_Lightyear_%28Toy_Story_character%29.png" alt="Product 3">
+                <h3>Buzz lightyear</h3>
+                <h4>A space ranger toy with electronic features, including flashing lights and catchphrases</h4>
+                <p>$25.00</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" id="product-4">
+                <img src="https://static.wikia.nocookie.net/true-villains/images/7/75/Gabby.png/revision/latest?cb=20190623155852" alt="Product 4">
+                <h3>Gabby Gabby</h3>
+                <h4>Gabby Gabby is an adorable, talking pull-string doll</h4>
+                <p>$40.00</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" id="product-5">
+                <img src="https://upload.wikimedia.org/wikipedia/en/f/f0/Bo_Peep.png" alt="Product 5">
+                <h3>Bo peep</h3>
+                <h4>She is a sweet, romantic, and kindhearted character who is often portrayed as a damsel in distress. </h4>
+                <p>$15.00</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+        </section>
+
+        <section id="cart">
+            <h2>Shopping Cart</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: $<span id="cart-total">0.00</span></p>
+            <p id="cart-time"></p>
+        </section>
+    </main>
+
+    <script>
+        class Product {
+            constructor(id, name, price, image) {
+                this.id = id;
+                this.name = name;
+                this.price = price;
+                this.image = image;
+            }
+        }
+
+        class Cart {
+            constructor() {
+                this.items = [];
+                this.total = 0;
+                this.date = new Date();
+            }
+
+            addItem(product) {
+                this.items.push(product);
+                this.total += product.price;
+                this.date = new Date();
+            }
+
+            displayCart() {
+                const cartItemsContainer = document.getElementById('cart-items');
+                const cartTotalContainer = document.getElementById('cart-total');
+                const cartTimeContainer = document.getElementById('cart-time');
+
+                cartItemsContainer.innerHTML = '';
+                this.items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `${item.name} - $${item.price.toFixed(2)}`;
+                    cartItemsContainer.appendChild(li);
+                });
+
+                cartTotalContainer.textContent = this.total.toFixed(2);
+                cartTimeContainer.textContent = `Last updated: ${this.date.toLocaleString()}`;
+            }
+        }
+
+        const cart = new Cart();
+
+        const products = [
+            new Product(1, 'Woody', 20, 'https://static.wikia.nocookie.net/toy-story/images/2/25/Woody.png/revision/latest/thumbnail/width/360/height/450?cb=20190307013217&path-prefix=fr'),
+            new Product(2, 'Jessie', 30, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8p6TFewhlOKK5pZe_4gQxv__zdkPESgE7IA&s'),
+            new Product(3, 'Buzz lightyear', 25, 'https://upload.wikimedia.org/wikipedia/en/6/63/Buzz_Lightyear_%28Toy_Story_character%29.png'),
+            new Product(4, 'Gabby Gabby', 40, 'https://static.wikia.nocookie.net/true-villains/images/7/75/Gabby.png/revision/latest?cb=20190623155852'),
+            new Product(5, 'Bo peep', 15, 'https://upload.wikimedia.org/wikipedia/en/f/f0/Bo_Peep.png')
+        ];
+
+        document.querySelectorAll('.add-to-cart').forEach((button, index) => {
+            button.addEventListener('click', () => {
+                cart.addItem(products[index]);
+                cart.displayCart();
+            });
+        });
+    </script>
+</body>
+</html>
