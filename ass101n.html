@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Application</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+            width: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.03);
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        input, select, button {
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            width: calc(100% - 24px);
+            display: block;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            font-weight: bold;
+            border: none;
+        }
+        button:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        #result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            let name = document.forms["visaForm"]["name"].value;
+            let passport = document.forms["visaForm"]["passport"].value;
+            let country = document.forms["visaForm"]["country"].value;
+            let result = document.getElementById("result");
+
+            if (name.trim() === "" || passport.trim() === "" || country === "") {
+                result.innerHTML = "⚠️ All fields are required!";
+                result.style.color = "#dc3545";
+                result.style.opacity = "1";
+                return false;
+            }
+            if (passport.length < 8 || passport.length > 10) {
+                result.innerHTML = "⚠️ Invalid passport number!";
+                result.style.color = "#dc3545";
+                result.style.opacity = "1";
+                return false;
+            }
+            result.innerHTML = "✅ Visa application submitted successfully!";
+            result.style.color = "#28a745";
+            result.style.opacity = "1";
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Visa Application</h2>
+        <form name="visaForm" onsubmit="return validateForm()">
+            <input type="text" name="name" placeholder="Enter your full name">
+            <input type="text" name="passport" placeholder="Passport number (8-10 characters)">
+            <select name="country">
+                <option value="">Select a country</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="India">India</option>
+                <option value="UK">UK</option>
+                <option value="Australia">Australia</option>
+            </select>
+            <button type="submit">Apply for Visa</button>
+        </form>
+        <p id="result" style="opacity: 0;"></p>
+    </div>
+</body>
+</html>
