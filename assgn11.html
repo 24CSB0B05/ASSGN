@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock, Alarm, Stopwatch & Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.5s;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .clock {
+            font-size: 3em;
+            animation: glow 1s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #fff; }
+            100% { text-shadow: 0 0 20px #ff00ff; }
+        }
+        .blink {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #ddd;
+        }
+        .theme-switcher {
+            margin: 20px 0;
+        }
+        .progress {
+            width: 100%;
+            height: 20px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #4caf50;
+            width: 100%;
+            transition: width 1s;
+        }
+        .alert {
+            display: none;
+            margin-top: 10px;
+            animation: fade 0.5s;
+        }
+        @keyframes fade {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .light { background-color: #f0f0f0; color: #000; }
+        .dark { background-color: #333; color: #fff; }
+        .neon { background-color: #000; color: #0ff; }
+        .custom { background-color: #ffeb3b; color: #000; }
+    </style>
+</head>
+<body class="light">
+    <div class="container">
+        <div class="clock" id="clock">00:00:00 AM</div>
+        <div class="theme-switcher">
+            <button class="button" onclick="setTheme('light')">Light</button>
+            <button class="button" onclick="setTheme('dark')">Dark</button>
+            <button class="button" onclick="setTheme('neon')">Neon</button>
+            <button class="button" onclick="setTheme('custom')">Custom</button>
+        </div>
+        <div>
+            <input type="time" id="alarmTime">
+            <button class="button" onclick="setAlarm()">Set Alarm</button>
+            <div class="alert" id="alarmAlert">Alarm ringing!</div>
+        </div>
+        <div>
+            <button class="button" onclick="startStopwatch()">Start Stopwatch</button>
+            <button class="button" onclick="pauseStopwatch()">Pause</button>
+            <button class="button" onclick="resetStopwatch()">Reset</button>
+            <div id="stopwatchDisplay">00:00:00</div>
+        </div>
+        <div>
+            <input type="number" id="countdownInput" placeholder="Minutes" min="0">
+            <input type="number" id="countdownInputSec" placeholder="Seconds" min="0" max="59">
+            <button class="button" onclick="startCountdown()">Start Countdown</button>
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <div id="countdownDisplay">00:00</div>
+        </div>
+    </div>
+
+    <script>
+        let alarmTimes = [];
+        let alarmTimeouts = [];
+        let stopwatchInterval;
+        let stopwatchTime = 0;
+        let countdownInterval;
+        let countdownTime = 0;
+
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = String(hours % 12 || 12).padStart(2, '0');
+            document.getElementById('clock').innerHTML = `${displayHours}:${minutes}:${seconds} ${ampm}`;
+            checkAlarms(displayHours, minutes, seconds, ampm);
+        }
+
+        function checkAlarms(displayHours, minutes, seconds, ampm) {
+            alarmTimes.forEach((alarm, index) => {
+                if (alarm.hours === displayHours && alarm.minutes === minutes && alarm.ampm === ampm) {
+                    alert("Alarm ringing!");
+                    const audio = new Audio('alarm-sound.mp3'); // Replace with your alarm sound file
+                    audio.play();
+                    alarmTimeouts[index] = setTimeout(() => {
+                        alert("Snooze for 5 minutes?");
+                        setTimeout(() => {
+                            audio.pause();
+                        }, 300000); // Snooze for 5 minutes
+                    }, 1000);
+                }
+            });
+        }
+
+        function setAlarm() {
+            const alarmInput = document.getElementById('alarmTime').value;
+            if (alarmInput) {
+                const [hours, minutes] = alarmInput.split(':');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                alarmTimes.push({ hours: String(hours).padStart(2, '0'), minutes: String(minutes).padStart(2, '0'), ampm });
+                alert("Alarm set for " + alarmInput + " " + ampm);
+            }
+        }
+
+        function startStopwatch() {
+            if (!stopwatchInterval) {
+                stopwatchInterval = setInterval(() => {
+                    stopwatchTime++;
+                    const hours = String(Math.floor(stopwatchTime / 3600)).padStart(2, '0');
+                    const minutes = String(Math.floor((stopwatchTime % 3600) / 60)).padStart(2, '0');
+                    const seconds = String(stopwatchTime % 60).padStart(2, '0');
+                    document.getElementById('stopwatchDisplay').innerHTML = `${hours}:${minutes}:${seconds}`;
+                }, 1000);
+            }
+        }
+
+        function pauseStopwatch() {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+            stopwatchTime = 0;
+            document.getElementById('stopwatchDisplay').innerHTML = "00:00:00";
+        }
+
+        function startCountdown() {
+            const minutes = parseInt(document.getElementById('countdownInput').value) || 0;
+            const seconds = parseInt(document.getElementById('countdownInputSec').value) || 0;
+            countdownTime = (minutes * 60) + seconds;
+            document.getElementById('countdownDisplay').innerHTML = formatTime(countdownTime);
+            document.getElementById('progressBar').style.width = '100%';
+
+            clearInterval(countdownInterval);
+            countdownInterval = setInterval(() => {
+                if (countdownTime > 0) {
+                    countdownTime--;
+                    document.getElementById('countdownDisplay').innerHTML = formatTime(countdownTime);
+                    const progressPercentage = (countdownTime / ((minutes * 60) + seconds)) * 100;
+                    document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+                } else {
+                    clearInterval(countdownInterval);
+                    alert("Time's up!");
+                }
+            }, 1000);
+        }
+
+        function formatTime(time) {
+            const minutes = String(Math.floor(time / 60)).padStart(2, '0');
+            const seconds = String(time % 60).padStart(2, '0');
+            return `${minutes}:${seconds}`;
+        }
+
+        function setTheme(theme) {
+            document.body.className = theme;
+        }
+
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
